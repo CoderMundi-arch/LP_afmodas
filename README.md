@@ -14,7 +14,7 @@ Página estática (HTML + CSS + JS puro), sem build e sem backend.
 
 - `PageView` dispara ao abrir a página (se houver ID).
 - `Lead` dispara no clique em qualquer botão do Grupo VIP, **uma única vez por sessão** (sem duplicar se a pessoa clicar em vários botões ou voltar para a página na mesma aba).
-- Parâmetros enviados: `content_name: "Grupo VIP Black Friday"`, `content_category: "Live Shopping 26/11"` e `cta` (hero, convite, final ou fixo).
+- Parâmetros enviados: `content_name: "Grupo VIP Black Friday"`, `content_category: "Live Shopping 25/11 às 19h"` e `cta` (hero, convite, final ou fixo).
 
 ## 3. Publicação
 

@@ -1,0 +1,32 @@
+name: Test hero images quality
+on:
+  push:
+    paths:
+      - '.github/workflows/test-hero-source.yml'
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check available source image resolution
+        env:
+          PHOTO_TWO: 'https://media.canva.com/v2/image-resize/format:JPG/height:200/quality:75/uri:ifs%3A%2F%2FM%2F529674e4-fdb4-4c45-8bb1-434f833b06d0/watermark:F/width:159?csig=AAAAAAAAAAAAAAAAAAAAAKHMmK1oxv_y_049MNCQva6IDRel1PDD9BdaCPQJnMBr&exp=1794814302&osig=AAAAAAAAAAAAAAAAAAAAADdN2-ub52W6CV8IdoBGNAKJFkCKhHdkGB6iycSe6q1v&signer=media-rpc&token=AAIAAU0AJDUyOTY3NGU0LWZkYjQtNGM0NS04YmIxLTQzNGY4MzNiMDZkMAAAAAABoeNE1zCYEZm_f7f_Qo240_1yz2zTgUbJ-CPG-uTNfkk1WQe-_A&x-canva-quality=thumbnail'
+        run: |
+          python -m pip install pillow -q
+          python - <<'PY'
+            from urllib.request import Request,urlopen
+            from PIL import Image
+            from io import BytesIO
+            import os
+            u = os.environ['PHOTO_TWO']
+            for dims in [(1350,1080),(1688,1350),(200,159)]:
+                target=u.replace('height:200',f'height:{dims[0]}').replace('width:159',f'width:{dims[1]}').replace('quality:75','quality:95')
+                req=Request(target,headers={'User-Agent':'Mozilla/5.0'})
+                try:
+                    with urlopen(req,timeout=20) as f: b=f.read()
+                    im=Image.open(BytesIO(b))
+                    print('candidate',dims,'returned',im.size,'bytes',len(b))
+                    if im.width>=900:
+                        break
+                except Exception as e: print('candidate',dims,'error',str(e)[:100])
+            
+          PY

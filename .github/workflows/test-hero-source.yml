@@ -13,12 +13,12 @@ jobs:
         run: |
           python -m pip install pillow -q
           python - <<'PY'
-            from urllib.request import Request,urlopen
-            from PIL import Image
-            from io import BytesIO
-            import os
-            u = os.environ['PHOTO_TWO']
-            for dims in [(1350,1080),(1688,1350),(200,159)]:
+          from urllib.request import Request,urlopen
+          from PIL import Image
+          from io import BytesIO
+          import os
+          u = os.environ['PHOTO_TWO']
+          for dims in [(1350,1080),(1688,1350),(200,159)]:
                 target=u.replace('height:200',f'height:{dims[0]}').replace('width:159',f'width:{dims[1]}').replace('quality:75','quality:95')
                 req=Request(target,headers={'User-Agent':'Mozilla/5.0'})
                 try:

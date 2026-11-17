@@ -7,5 +7,5 @@ window.AF_CONFIG = {
   grupoVip: "https://chat.whatsapp.com/BQheWrTxrJHCswvmojRfFq?s=sw&p=i&iam=2",
 
   // ID do Pixel da Meta (somente números). Deixe "" para não carregar o Pixel.
-  metaPixelId: ""
+  metaPixelId: "1123616720392572"
 };
